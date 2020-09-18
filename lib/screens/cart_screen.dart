@@ -1,3 +1,4 @@
+import 'package:amazon_ui/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatefulWidget {
@@ -5,9 +6,81 @@ class CartScreen extends StatefulWidget {
   _CartScreenState createState() => _CartScreenState();
 }
 
+_buildCartProduct(int index) {
+  return ListTile(
+    contentPadding: EdgeInsets.all(20.0),
+    leading: Image(
+      height: double.infinity,
+      width: 100.0,
+      image: AssetImage(
+        cart[index].imageUrl,
+      ),
+      fit: BoxFit.contain,
+    ),
+    title: Text(
+      cart[index].name,
+      style: TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    subtitle: Text(
+      'x1',
+      style: TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    trailing: Text(
+      '\$${cart[index].price.toStringAsFixed(2)}',
+      style: TextStyle(
+        color: Colors.orange,
+        fontSize: 16.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
+}
+
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          'Shopping Cart (${cart.length})',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+      ),
+      body: ListView.separated(
+        itemBuilder: (BuildContext context, int index) {
+          return _buildCartProduct(index);
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            color: Colors.grey[300],
+          );
+        },
+        itemCount: cart.length,
+      ),
+      bottomSheet: Container(
+        height: 80.0,
+        color: Colors.orange,
+        child: Center(
+          child: Text(
+            'PLACE ORDER (\$336.39)',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

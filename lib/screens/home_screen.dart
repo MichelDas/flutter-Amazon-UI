@@ -1,3 +1,6 @@
+import 'package:amazon_ui/models/product_model.dart';
+import 'package:amazon_ui/screens/cart_screen.dart';
+import 'package:amazon_ui/screens/product_carousel.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,7 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: EdgeInsets.only(top: 12.0, right: 20.0),
                 child: InkResponse(
-                    onTap: () => print('Go to cart'),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CartScreen(),
+                        )),
                     child: Icon(
                       Icons.shopping_basket,
                       size: 30.0,
@@ -172,6 +179,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
+          ),
+          SizedBox(height: 15.0),
+          ProductCarousel(
+            title: 'Amazon Prime Deals',
+            products: products,
+          ),
+          ProductCarousel(
+            title: 'Popular Books',
+            products: books,
           ),
         ],
       ),
